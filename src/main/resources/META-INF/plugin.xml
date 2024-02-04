@@ -12,7 +12,7 @@
   <!-- Product and plugin compatibility requirements -->
   <depends>com.intellij.modules.platform</depends>
 
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <idea-version since-build="233.14015.113" />
 
   <!-- Text to display as description on Settings | Plugin page -->
@@ -24,6 +24,7 @@
   <change-notes>
     <![CDATA[
       <ul>
+        <li><b>0.1.1</b> Changes coming from dependabot</li>
         <li><b>0.1.0</b> Converting to Emmet via Xemmet works</li>
       </ul>
     ]]>

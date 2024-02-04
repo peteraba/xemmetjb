@@ -2,6 +2,9 @@
 
 # xemmetjb Changelog
 
+## 0.1.1
+- Changes coming from dependabot
+ 
 ## 0.1.0
 - Initial code for running Xemmet found in OS PATH
 
