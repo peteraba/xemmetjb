@@ -1,6 +1,9 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# xemmet-jb Changelog
+# xemmetjb Changelog
+
+## 0.1.0
+- Initial code for running Xemmet found in OS PATH
 
 ## [Unreleased]
 ### Added

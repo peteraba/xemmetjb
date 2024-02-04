@@ -1,13 +1,13 @@
-# xemmet-jb
+# xemmetjb
 
-![Build](https://github.com/peteraba/xemmet-jb/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+![Build](https://github.com/peteraba/xemmetjb/workflows/Build/badge.svg)
+[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/xemmetjb)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/xemmetjb)
 
 ## Template ToDo list
 - [x] Create a new [IntelliJ Platform Plugin Template][template] project.
 - [ ] Get familiar with the [template documentation][template].
-- [ ] Adjust the [pluginGroup](./gradle.properties), [plugin ID](./src/main/resources/META-INF/plugin.xml) and [sources package](./src/main/kotlin).
+- [x] Adjust the [pluginGroup](./gradle.properties), [plugin ID](./src/main/resources/META-INF/plugin.xml) and [sources package](./src/main/java).
 - [ ] Adjust the plugin description in `README` (see [Tips][docs:plugin-description])
 - [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html?from=IJPluginTemplate).
 - [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
@@ -28,12 +28,12 @@ To keep everything working, do not remove `<!-- ... -->` sections.
 
 - Using the IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "xemmet-jb"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "xemmetjb"</kbd> >
   <kbd>Install</kbd>
   
 - Manually:
 
-  Download the [latest release](https://github.com/peteraba/xemmet-jb/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/peteraba/xemmetjb/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
