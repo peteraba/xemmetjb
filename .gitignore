@@ -2,3 +2,6 @@
 .idea
 .qodana
 build
+
+verifier-all.jar
+verification-20*

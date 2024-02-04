@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Class-Path: ant.jar 3rd-party-rt.jar app.jar byte-buddy-agent.jar error-
+ prone-annotations.jar external-system-rt.jar externalProcess-rt.jar for
+ ms_rt.jar groovy.jar idea_rt.jar intellij-coverage-agent-1.0.706.jar in
+ tellij-test-discovery.jar jps-model.jar jsch-agent.jar junit4.jar proto
+ buf.jar rd.jar stats.jar testFramework.jar util.jar util-8.jar util_rt.
+ jar annotations-24.0.1.jar
+

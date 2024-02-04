@@ -1,18 +1,52 @@
+<!-- Copyright 2000-2022 JetBrains s.r.o. and other contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file. -->
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+
 <idea-plugin>
-    <id>com.github.peteraba.xemmetjb</id>
-    <name>xemmet-jb Template</name>
-    <vendor>peteraba</vendor>
 
-    <depends>com.intellij.modules.platform</depends>
+  <!-- Unique id for this plugin. Must stay constant for the life of the plugin. -->
+  <id>com.peteraba.xemmetjb</id>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
+  <!-- Text to display as name on Settings | Plugin page -->
+  <name>Xemmet - Emmet.HTML Implementation in Go, with a spin for HTMX</name>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.peteraba.xemmetjb.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-    </extensions>
+  <!-- Product and plugin compatibility requirements -->
+  <depends>com.intellij.modules.platform</depends>
 
-    <applicationListeners>
-        <listener class="com.github.peteraba.xemmetjb.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
+  <version>0.1.0</version>
+  <idea-version since-build="233.14015.113" />
+
+  <!-- Text to display as description on Settings | Plugin page -->
+  <description>
+    <![CDATA[
+      Enables converting Emmet expressions into HTML by pressing Ctrl+Alt+X at the end of the expression.
+    ]]>
+  </description>
+  <change-notes>
+    <![CDATA[
+      <ul>
+        <li><b>0.1.0</b> Converting to Emmet via Xemmet works</li>
+      </ul>
+    ]]>
+  </change-notes>
+
+  <!-- Text to display as company information on Settings | Plugin page -->
+  <vendor url="https://peteraba.com">Plugin by Peter Aba</vendor>
+
+  <actions>
+    <action id="EditorBasics.XemmetOnTabAction.XML"
+            class="com.peteraba.xemmetjb.XemmetOnTabAction"
+            text="Emmet XML"
+            description="Converts an Emmet expression into an XML fragment"
+            icon="SdkIcons.Sdk_default_icon">
+      <keyboard-shortcut keymap="$default" first-keystroke="control alt X"/>
+    </action>
+    <action id="EditorBasics.XemmetOnTabAction.HTML"
+            class="com.peteraba.xemmetjb.XemmetOnTabAction"
+            text="Emmet HTML"
+            description="Converts an Emmet expression into an HTML fragment"
+            icon="SdkIcons.Sdk_default_icon">
+      <keyboard-shortcut keymap="$default" first-keystroke="control alt H"/>
+    </action>
+  </actions>
+
 </idea-plugin>
