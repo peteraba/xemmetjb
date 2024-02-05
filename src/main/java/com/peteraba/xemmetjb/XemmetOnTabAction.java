@@ -220,16 +220,21 @@ public class XemmetOnTabAction extends AnAction {
     private static BufferedReader getBufferedReader(@NotNull String in, @NotNull String mode, boolean isMultiline) throws IOException {
         ProcessBuilder builder;
 
-        if (isMultiline) {
-            builder = new ProcessBuilder("xemmet", mode, "--indentation='  '", in);
-        } else {
-            builder = new ProcessBuilder("xemmet", mode, "--inline", in);
+        String executable = "xemmet";
+        if (System.getProperty("os.name").contains("win")) {
+            executable += ".exe";
         }
 
-//            builder.redirectErrorStream(true); // Redirects error stream to standard output
+        String extra = "--inline";
+        if (isMultiline) {
+            extra = "--indentation='  '";
+        }
+
+        builder = new ProcessBuilder(executable, mode, extra, in);
         Process process = builder.start();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
         return reader;
     }
 }
