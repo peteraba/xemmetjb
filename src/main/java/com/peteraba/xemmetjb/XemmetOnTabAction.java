@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class XemmetOnTabAction extends AnAction {
@@ -199,18 +200,7 @@ public class XemmetOnTabAction extends AnAction {
 
     private @NotNull String getXemmetTemplate(@NotNull String in, @NotNull String mode, boolean isMultiline) {
         try {
-            ProcessBuilder builder;
-
-            if (isMultiline) {
-                builder = new ProcessBuilder("xemmet", mode, "--indentation='  '", in);
-            } else {
-                builder = new ProcessBuilder("xemmet", mode, "--inline", in);
-            }
-
-//            builder.redirectErrorStream(true); // Redirects error stream to standard output
-            Process process = builder.start();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader reader = getBufferedReader(in, mode, isMultiline);
             StringBuilder output = new StringBuilder();
 
             String line;
@@ -224,5 +214,22 @@ public class XemmetOnTabAction extends AnAction {
         }
 
         return "FATAL ERROR";
+    }
+
+    @NotNull
+    private static BufferedReader getBufferedReader(@NotNull String in, @NotNull String mode, boolean isMultiline) throws IOException {
+        ProcessBuilder builder;
+
+        if (isMultiline) {
+            builder = new ProcessBuilder("xemmet", mode, "--indentation='  '", in);
+        } else {
+            builder = new ProcessBuilder("xemmet", mode, "--inline", in);
+        }
+
+//            builder.redirectErrorStream(true); // Redirects error stream to standard output
+        Process process = builder.start();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        return reader;
     }
 }
