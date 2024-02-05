@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class XemmetOnTabAction extends AnAction {
@@ -74,7 +73,7 @@ public class XemmetOnTabAction extends AnAction {
         NORMAL, TEXT, ATTRIBUTE
     }
 
-    private boolean isFirstNonWhiteCharInLine(String text, int start) {
+    private boolean isFirstNonWhiteCharInLine(@NotNull String text, int start) {
         char c;
 
         while (start > 0) {
@@ -94,7 +93,7 @@ public class XemmetOnTabAction extends AnAction {
         return true;
     }
 
-    private int getStart(String text, int start) {
+    private int getStart(@NotNull String text, int start) {
         State state = State.NORMAL;
         char c;
 
@@ -146,7 +145,7 @@ public class XemmetOnTabAction extends AnAction {
         return start;
     }
 
-    private int getEnd(String text, int end) {
+    private int getEnd(@NotNull String text, int end) {
         State state = State.NORMAL;
         char c;
 
@@ -198,7 +197,7 @@ public class XemmetOnTabAction extends AnAction {
         return end;
     }
 
-    private String getXemmetTemplate(String in, String mode, boolean isMultiline) {
+    private @NotNull String getXemmetTemplate(@NotNull String in, @NotNull String mode, boolean isMultiline) {
         try {
             ProcessBuilder builder;
 
@@ -220,7 +219,7 @@ public class XemmetOnTabAction extends AnAction {
             }
 
             return output.toString().replace("'  '", "    ");
-        } catch (IOException e) {
+        } catch (Exception e) {
             Messages.showWarningDialog(e.getMessage(), "Error: " + e.getClass().getCanonicalName());
         }
 
