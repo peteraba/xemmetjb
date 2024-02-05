@@ -2,6 +2,7 @@
 .idea
 .qodana
 build
+out/production
 
 verifier-all.jar
 verification-20*
