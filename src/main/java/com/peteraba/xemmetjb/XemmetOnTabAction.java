@@ -27,8 +27,12 @@ public class XemmetOnTabAction extends AnAction {
         int k = ((KeyEvent) event).getKeyCode();
 
         String mode = "--mode=html";
-        if (k == 88) {
-            mode = "--mode=xml";
+        switch (k) {
+            case 88:
+                mode = "--mode=xml";
+                break;
+            case 48:
+                mode = "--mode=htmx";
         }
 
         // Get editor
@@ -46,8 +50,8 @@ public class XemmetOnTabAction extends AnAction {
         int start = getStart(text, caretOffset);
         int end = getEnd(text, caretOffset);
 
-        if (start <= 0 || end <= 0) {
-            Messages.showWarningDialog("No words found", "EMMET ERROR");
+        if (end <= start) {
+            return;
         }
 
         String emmetExpression = text.substring(start, end);

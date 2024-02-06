@@ -24,6 +24,7 @@
   <change-notes>
     <![CDATA[
       <ul>
+        <li><b>0.1.2</b> Support HTMX</li>
         <li><b>0.1.1</b> Changes coming from dependabot</li>
         <li><b>0.1.0</b> Converting to Emmet via Xemmet works</li>
       </ul>
@@ -34,6 +35,13 @@
   <vendor url="https://peteraba.com">Plugin by Peter Aba</vendor>
 
   <actions>
+    <action id="EditorBasics.XemmetOnTabAction.HTMX"
+            class="com.peteraba.xemmetjb.XemmetOnTabAction"
+            text="Emmet HTMX"
+            description="Converts an Emmet expression into an HTMX fragment"
+            icon="SdkIcons.Sdk_default_icon">
+      <keyboard-shortcut keymap="$default" first-keystroke="control alt 0"/>
+    </action>
     <action id="EditorBasics.XemmetOnTabAction.XML"
             class="com.peteraba.xemmetjb.XemmetOnTabAction"
             text="Emmet XML"
