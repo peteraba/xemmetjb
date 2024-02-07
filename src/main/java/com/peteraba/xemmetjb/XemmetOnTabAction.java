@@ -50,13 +50,16 @@ public class XemmetOnTabAction extends AnAction {
         String emmetExpression = text.substring(start, end);
 
         // Retrieve HTML Snippet
-        boolean isMultiline = emmetExpression.contains("\n");
         boolean isFirstNonWhite = isFirstNonWhiteCharInLine(text, start);
+        boolean isMultiline = isFirstNonWhite || emmetExpression.contains("\n");
 
         String mode = getMode((KeyEvent) event);
-        Pair<String, Integer> indentation = getIndentation(document, text, start);
+        Pair<String, Integer> indentation = Pair.pair("", 0);
+        if (isFirstNonWhite) {
+            indentation = getIndentation(document, text, start);
+        }
 
-        String emmetTemplate = getXemmetTemplate(emmetExpression, mode, isMultiline || isFirstNonWhite, indentation.first, indentation.second);
+        String emmetTemplate = getXemmetTemplate(emmetExpression, mode, isMultiline, indentation.first, indentation.second);
         if (emmetTemplate.isEmpty()) {
             Messages.showWarningDialog("Can't render the Emmet.HTML as Xemmet did not return any.", "EMMET HTML");
 
