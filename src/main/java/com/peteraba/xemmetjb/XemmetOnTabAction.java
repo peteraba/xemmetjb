@@ -257,10 +257,10 @@ public class XemmetOnTabAction extends AnAction {
 
             return output.toString();
         } catch (Exception e) {
-            Messages.showWarningDialog(e.getMessage(), "Error: " + e.getClass().getCanonicalName());
+            Messages.showWarningDialog(e.getMessage(), "Exception - " + e.getClass().getCanonicalName());
         }
 
-        return "FATAL ERROR";
+        return in;
     }
 
     @NotNull
