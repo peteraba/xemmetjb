@@ -1,6 +1,8 @@
 package com.peteraba.xemmetjb;
 
 import com.google.common.base.Strings;
+
+import com.intellij.codeInsight.template.Template;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -10,6 +12,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.Pair;
 import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
+import com.intellij.codeInsight.template.TemplateManager;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.event.InputEvent;
@@ -59,17 +63,15 @@ public class XemmetOnTabAction extends AnAction {
             indentation = getIndentation(document, text, start);
         }
 
-        String emmetTemplate = getXemmetTemplate(emmetExpression, mode, isMultiline, indentation.first, indentation.second);
+        String emmetTemplate = getXemmetTemplate(emmetExpression, mode, isMultiline, indentation.first, 0);
         if (emmetTemplate.isEmpty()) {
-            Messages.showWarningDialog("Can't render the Emmet.HTML as Xemmet did not return any.", "EMMET HTML");
+            Messages.showWarningDialog("Can't render the Xemmet expression, Xemmet did not return anything.", "EMMET HTML");
 
             return;
         }
 
         // Take action
-        Runnable runnable = () -> document.replaceString(start, end, emmetTemplate);
-
-        WriteCommandAction.runWriteCommandAction(project, runnable);
+        doTemplate(project, editor, emmetTemplate, start, end);
     }
 
     private String getMode(KeyEvent event) {
@@ -281,5 +283,36 @@ public class XemmetOnTabAction extends AnAction {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         return reader;
+    }
+
+    private Template createTemplate(Project project, String text) {
+        String key = "";
+        String group = "";
+
+        TemplateManager templateManager = TemplateManager.getInstance(project);
+        Template template = templateManager.createTemplate(key, group, text);
+
+        // Adding variables which will act as tab stops. The second parameter is the default value, the third one is an expression that will be evaluated for the default value (can be null), and the fourth is a boolean indicating whether the variable is editable.
+//        String name = "CLASS_NAME";
+//        String expression = "";
+//        String defaultValue = "ClassName()";
+//        boolean isAlwaysStopAt = true;
+//        template.addVariable(name, expression, defaultValue, isAlwaysStopAt);
+
+        // Set to true to reformat according to the code style after the template is applied
+        template.setToReformat(true);
+
+        return template;
+    }
+
+
+    public void doTemplate(Project project, Editor editor, String text, int startAt, int endAt) {
+        Template template = createTemplate(project, text);
+
+        // Ensure we perform modifications in a write action
+        WriteCommandAction.runWriteCommandAction(project, () -> {
+            editor.getDocument().deleteString(startAt, endAt);
+            TemplateManager.getInstance(project).startTemplate(editor, template);
+        });
     }
 }
