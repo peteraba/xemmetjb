@@ -21,6 +21,8 @@ import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class XemmetOnTabAction extends AnAction {
     @Override
@@ -273,9 +275,9 @@ public class XemmetOnTabAction extends AnAction {
         ProcessBuilder builder;
 
         if (isMultiline) {
-            builder = new ProcessBuilder("xemmet", "--mode", mode, "--indentation", indentation, "--depth", Integer.toString(depth), in);
+            builder = new ProcessBuilder("xemmet", "--mode", mode, "--indentation", indentation, "--depth", Integer.toString(depth), "--tabStop", "$", in);
         } else {
-            builder = new ProcessBuilder("xemmet", "--mode", mode, "--inline", in);
+            builder = new ProcessBuilder("xemmet", "--mode", mode, "--inline", "--tabStop", "$", in);
         }
 
 //            builder.redirectErrorStream(true); // Redirects error stream to standard output
@@ -292,12 +294,16 @@ public class XemmetOnTabAction extends AnAction {
         TemplateManager templateManager = TemplateManager.getInstance(project);
         Template template = templateManager.createTemplate(key, group, text);
 
-        // Adding variables which will act as tab stops. The second parameter is the default value, the third one is an expression that will be evaluated for the default value (can be null), and the fourth is a boolean indicating whether the variable is editable.
-//        String name = "CLASS_NAME";
-//        String expression = "";
-//        String defaultValue = "ClassName()";
-//        boolean isAlwaysStopAt = true;
-//        template.addVariable(name, expression, defaultValue, isAlwaysStopAt);
+        String emailRegex = "\\$(STOP\\d+)\\$";
+
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(text);
+
+        while (matcher.find()) {
+            String name = matcher.group(1);
+            boolean isAlwaysStopAt = true;
+            template.addVariable(name, null, "", isAlwaysStopAt);
+        }
 
         // Set to true to reformat according to the code style after the template is applied
         template.setToReformat(true);
